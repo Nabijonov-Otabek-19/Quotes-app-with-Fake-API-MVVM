@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import kotlinx.coroutines.launch
 import uz.gita.quotesappretrofitmvvm.adapter.MyAdapter
 import uz.gita.quotesappretrofitmvvm.databinding.ActivityMainBinding
 import uz.gita.quotesappretrofitmvvm.viewmodel.MainViewModel
@@ -36,7 +34,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 
-        loadData()
+        binding.button.setOnClickListener {
+            loadData()
+        }
     }
 
     private fun loadData() {

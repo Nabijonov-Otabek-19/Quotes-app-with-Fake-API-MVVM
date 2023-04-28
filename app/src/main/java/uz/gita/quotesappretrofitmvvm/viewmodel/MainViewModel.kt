@@ -3,11 +3,8 @@ package uz.gita.quotesappretrofitmvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import uz.gita.quotesappretrofitmvvm.model.NetworkResult
 import uz.gita.quotesappretrofitmvvm.model.QuoteData
 import uz.gita.quotesappretrofitmvvm.repository.AppRepositoryImpl
 
@@ -21,7 +18,19 @@ class MainViewModel : ViewModel() {
     fun getQuotes() {
         viewModelScope.launch {
             repository.getQuotes().collect {
-                quotesData.value = it
+                when (it) {
+                    is NetworkResult.SuccessApi -> {
+                        quotesData.value = it.data
+                    }
+
+                    is NetworkResult.FailureApi -> {
+                        errorData.value = "FailureAPi + ${it.message ?: it.code}"
+                    }
+
+                    is NetworkResult.ExceptionApi -> {
+                        errorData.value = "ExceptionApi + ${it.exception.message}"
+                    }
+                }
             }
         }
     }
