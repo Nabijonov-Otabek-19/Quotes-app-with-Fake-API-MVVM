@@ -23,11 +23,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        binding.recycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        binding.apply {
+            recycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+            recycler.adapter = adapter
+        }
 
         viewModel.quotesData.observe(this) {
             adapter.setDataList(it)
-            binding.recycler.adapter = adapter
         }
 
         viewModel.errorData.observe(this) {

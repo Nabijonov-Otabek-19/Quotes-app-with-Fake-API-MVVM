@@ -14,6 +14,7 @@ class MyAdapter : Adapter<MyAdapter.ItemHolder>() {
     fun setDataList(list: List<QuoteData>) {
         quotesList.clear()
         quotesList.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class ItemHolder(private val binding: ItemQuoteBinding) : ViewHolder(binding.root) {
