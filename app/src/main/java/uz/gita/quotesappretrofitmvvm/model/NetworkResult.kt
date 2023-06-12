@@ -27,4 +27,3 @@ suspend fun <T : Any> handleApi(
         NetworkResult.ExceptionApi(e)
     }
 }
-
